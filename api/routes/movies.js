@@ -46,10 +46,10 @@ router.delete("/:id", verify, async (req, res) => {
             await Movie.findByIdAndDelete(req.params.id)
             res.status(200).json("Movie deleted successfully!");
         } catch (error) {
-            res.status(500).json("You are not allowed")
+            res.status(500).json(error)
         }
     } else {
-        res.status(403).json("You cannot add a new movie")
+        res.status(403).json("You are not allowed")
     }
 
 })

@@ -1,8 +1,29 @@
 import { InfoOutlined, PlayArrow } from "@material-ui/icons";
 import "./featured.scss";
 import naruto from "../../images/naruto.png";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Featured = ({ type }) => {
+  const [content, setContent] = useState({});
+
+  useEffect(() => {
+    const getFeaturedContent = async () => {
+      try {
+        const res = await axios.get(`/movies/random?type=${type}`, {
+          headers: {
+            token:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMWNjMjA2OGEzODQzZWVhZDI0YjkxMCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0ODg5Mzk0MywiZXhwIjoxNjQ4OTgwMzQzfQ.kppYCw9GPifnRns-yA3udSk5TFY1oMOA2ZGua5zZUCc",
+          },
+        });
+        setContent(res.data[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFeaturedContent();
+  }, [type]);
+
   return (
     <div className="featured">
       {type && (
@@ -18,19 +39,10 @@ const Featured = ({ type }) => {
           </select>
         </div>
       )}
-      <img
-        width="100%"
-        src="https://wallpapercave.com/wp/wp2670843.jpg"
-        alt=""
-      />
+      <img width="100%" src={content.img} alt="" />
       <div className="info">
         <img src={naruto} alt="" />
-        <div className="desc">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-          eaque praesentium, nam quis hic aliquam ipsum, amet ut dolorem sed
-          optio expedita velit, distinctio iusto minima. Doloribus maiores
-          facilis molestias!
-        </div>
+        <div className="desc">{content.desc}</div>
         <div className="buttons">
           <button className="play">
             <PlayArrow />

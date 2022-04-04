@@ -5,6 +5,7 @@ import {
 } from "@material-ui/icons";
 import { useState } from "react";
 import "./navbar.scss";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,11 +33,21 @@ const Navbar = () => {
               </g>
             </svg>
           </span>
-          <span>Homepage</span>
-          <span>Series</span>
-          <span>Movies</span>
-          <span>New and Popular</span>
-          <span>My List</span>
+          <Link to="/">
+            <span>Homepage</span>
+          </Link>
+          <Link to="/series">
+            <span>Series</span>
+          </Link>
+          <Link to="/movies">
+            <span>Movies</span>
+          </Link>
+          <Link to="/">
+            <span>New and Popular</span>
+          </Link>
+          <Link to="/">
+            <span>My List</span>
+          </Link>
         </div>
         <div className="right">
           <Search className="icon" />
